@@ -1,0 +1,22 @@
+<div class="tab-pane fade" id="add-kelas" role="tabpanel" aria-labelledby="profile-tab">
+    <div class="card shadow mb-4 mt-2">
+        <div class="card-body">
+            <form action="/admin/kelas" method="POST">
+                <div class="form-group">
+                    <label for="name">Nama Kelas</label>
+                    <input type="text" class="form-control" name="name" placeholder="Enter kelas" required>
+                </div>
+                <div class="form-group">
+                    <label for="name">Jurusan</label>
+                    <select class="form-control" name="jurusanId">
+                        <option>--- Jurusan ---</option>
+                        <% for(let i = 0; i < jurusan.length; i++){ %>
+                        <option value="<%= jurusan[i].id %>"><%= jurusan[i].name %></option>
+                        <% } %>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary">Save</button>
+            </form>
+        </div>
+    </div>
+</div>

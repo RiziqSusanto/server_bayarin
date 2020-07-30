@@ -1,0 +1,48 @@
+jurusan : {
+	name : string 
+}
+
+image : {
+	imageUrl : string 
+}
+
+kelas : {
+	name : string,
+	jurusanId : {_id : ObjectId}
+}
+
+siswa : {
+	nisn : string
+	name : string,
+	jenisKelamin : enum,
+	noTelepon : string,
+	alamat : string,
+	kelasId : {_id : ObjectId},
+	jurursanId : {_id : ObjectId}
+}
+
+bank : {
+	nameBank : string,
+	nomorRekening : string,
+	name : string
+}
+
+transaksi : {
+	invoice : string,
+	proofPayment : string,
+    	bankFrom : string,
+    	accountHolder : string,
+	userId : {_id : ObjectId}
+}
+
+user : {
+  	firstName: string,
+  	lastName: string,
+  	email: string,
+  	phoneNumber: string,
+}
+
+operator : {
+	username : string,
+	password : string
+}
