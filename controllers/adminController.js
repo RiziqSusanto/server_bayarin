@@ -155,7 +155,8 @@ module.exports = {
                 title: "Bayarin | Kelas",
                 alert,
                 kelas,
-                jurusan
+                jurusan,
+                action: 'view'
             })
         } catch (error) {
             req.flash('alertMessage', `${error.message}`)
@@ -175,6 +176,60 @@ module.exports = {
             jurusan.kelasId.push({ _id: kelas._id })
             await jurusan.save();
             req.flash('alertMessage', 'Success Add Kelas')
+            req.flash('alertStatus', 'success')
+            res.redirect('/admin/kelas')
+        } catch (error) {
+            req.flash('alertMessage', `${error.message}`)
+            req.flash('alertStatus', 'danger')
+            res.redirect('/admin/kelas')
+        }
+    },
+    showEditKelas: async (req, res) => {
+        try {
+            const { id } = req.params;
+            const kelas = await Kelas.findOne({ _id: id })
+                .populate({ path: 'jurusanId', select: 'id name' });
+            const jurusan = await Jurusan.find()
+            const alertMessage = req.flash('alertMessage')
+            const alertStatus = req.flash('alertStatus')
+            const alert = { message: alertMessage, status: alertStatus }
+            res.render('admin/kelas/view_kelas', {
+                title: "Bayarin | Edit Kelas",
+                alert,
+                kelas,
+                jurusan,
+                action: 'edit'
+            })
+        } catch (error) {
+            req.flash('alertMessage', `${error.message}`)
+            req.flash('alertStatus', 'danger')
+            res.redirect('/admin/kelas')
+        }
+    },
+    editKelas: async (req, res) => {
+        try {
+            const { id } = req.params;
+            const { jurusanId, name } = req.body;
+            const kelas = await Kelas.findOne({ _id: id })
+                .populate({ path: 'jurusanId', select: 'id name' });
+            kelas.name = name;
+            kelas.jurusanId = jurusanId;
+            await kelas.save();
+            req.flash('alertMessage', 'Success Update Kelas')
+            req.flash('alertStatus', 'success')
+            res.redirect('/admin/kelas')
+        } catch (error) {
+            req.flash('alertMessage', `${error.message}`)
+            req.flash('alertStatus', 'danger')
+            res.redirect('/admin/kelas')
+        }
+    },
+    deleteKelas: async (req, res) => {
+        try {
+            const { id } = req.params;
+            const kelas = await Kelas.findOne({ _id: id });
+            await kelas.remove();
+            req.flash('alertMessage', 'Success Delete Kelas')
             req.flash('alertStatus', 'success')
             res.redirect('/admin/kelas')
         } catch (error) {

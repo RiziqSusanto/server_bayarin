@@ -18,6 +18,9 @@ router.delete('/jurusan/:id', adminController.deleteJurusan);
 
 router.get('/kelas', adminController.viewKelas);
 router.post('/kelas', adminController.addKelas);
+router.get('/kelas/:id', adminController.showEditKelas);
+router.put('/kelas/:id', adminController.editKelas);
+router.delete('/kelas/:id/delete', adminController.deleteKelas);
 
 router.get('/transaksi', adminController.viewTransaksi);
 
