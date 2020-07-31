@@ -10,6 +10,10 @@ const kelasSchema = new mongoose.Schema({
     type: ObjectId,
     ref: "Jurusan",
   },
+  muridId: [{
+    type: ObjectId,
+    ref: 'Murid'
+  }]
 });
 
 module.exports = mongoose.model("Kelas", kelasSchema);

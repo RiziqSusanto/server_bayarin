@@ -16,11 +16,18 @@ router.post('/jurusan', adminController.addJurusan);
 router.put('/jurusan', adminController.editJurusan);
 router.delete('/jurusan/:id', adminController.deleteJurusan);
 
+// Endpoint Kelas
 router.get('/kelas', adminController.viewKelas);
 router.post('/kelas', adminController.addKelas);
 router.get('/kelas/:id', adminController.showEditKelas);
 router.put('/kelas/:id', adminController.editKelas);
 router.delete('/kelas/:id/delete', adminController.deleteKelas);
+
+// Endpoint Murid
+router.get('/kelas/show-kelas-murid/:kelasId', adminController.viewKelasMurid);
+router.post('/kelas/add/murid', adminController.addMurid);
+router.put('/kelas/update/murid', adminController.editMurid);
+router.delete('/kelas/:kelasId/murid/:id', adminController.deleteMurid);
 
 router.get('/transaksi', adminController.viewTransaksi);
 

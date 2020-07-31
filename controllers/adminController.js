@@ -1,6 +1,7 @@
 const Jurusan = require('../models/Jurusan')
 const Bank = require('../models/Bank')
 const Kelas = require('../models/Kelas')
+const Murid = require('../models/Murid')
 const fs = require('fs-extra')
 const path = require('path')
 
@@ -236,6 +237,91 @@ module.exports = {
             req.flash('alertMessage', `${error.message}`)
             req.flash('alertStatus', 'danger')
             res.redirect('/admin/kelas')
+        }
+    },
+
+    viewKelasMurid: async (req, res) => {
+        const { kelasId } = req.params
+        try {
+            const alertMessage = req.flash('alertMessage')
+            const alertStatus = req.flash('alertStatus')
+            const alert = { message: alertMessage, status: alertStatus }
+            const murid = await Murid.find({ kelasId: kelasId });
+            res.render('admin/kelas/murid/view_murid', {
+                title: "Bayarin | Murid",
+                alert,
+                kelasId,
+                murid
+            })
+        } catch (error) {
+            req.flash('alertMessage', `${error.message}`)
+            req.flash('alertStatus', 'danger')
+            res.redirect(`/admin/kelas/show-kelas-murid/${kelasId}`)
+        }
+    },
+    addMurid: async (req, res) => {
+        const { nisn, name, jenisKelamin, noTelepon, alamat, kelasId } = req.body;
+        try {
+            const kelas = await Kelas.findOne({ _id: kelasId });
+            const newMurid = {
+                nisn,
+                name,
+                jenisKelamin,
+                noTelepon,
+                alamat,
+                kelasId: kelas._id,
+            }
+            const murid = await Murid.create(newMurid);
+            kelas.muridId.push({ _id: murid._id })
+            await kelas.save();
+            req.flash('alertMessage', 'Success Add Murid')
+            req.flash('alertStatus', 'success')
+            res.redirect(`/admin/kelas/show-kelas-murid/${kelasId}`)
+        } catch (error) {
+            req.flash('alertMessage', `${error.message}`)
+            req.flash('alertStatus', 'danger')
+            res.redirect(`/admin/kelas/show-kelas-murid/${kelasId}`)
+        }
+    },
+    editMurid: async (req, res) => {
+        const { id, nisn, name, jenisKelamin, noTelepon, alamat, kelasId } = req.body;
+        try {
+            const murid = await Murid.findOne({ _id: id })
+            murid.nisn = nisn;
+            murid.name = name;
+            murid.jenisKelamin = jenisKelamin;
+            murid.noTelepon = noTelepon;
+            murid.alamat = alamat;
+            await murid.save()
+            req.flash('alertMessage', 'Success Update Murid')
+            req.flash('alertStatus', 'success')
+            res.redirect(`/admin/kelas/show-kelas-murid/${kelasId}`)
+        } catch (error) {
+            req.flash('alertMessage', `${error.message}`)
+            req.flash('alertStatus', 'danger')
+            res.redirect(`/admin/kelas/show-kelas-murid/${kelasId}`)
+        }
+    },
+    deleteMurid: async (req, res) => {
+        const { id, kelasId } = req.params;
+        try {
+            const murid = await Murid.findOne({ _id: id });
+            const kelas = await (await Kelas.findOne({ _id: kelasId })).populate('muridId');
+            for (let i = 0; i < kelas.muridId.length; i++) {
+                if (kelas.muridId[i]._id.toString() === murid._id.toString()) {
+                    kelas.muridId.pull({ _id: murid._id });
+                    await kelas.save()
+                }
+            }
+            await murid.remove();
+            req.flash('alertMessage', 'Success Delete Murid')
+            req.flash('alertStatus', 'success')
+            res.redirect(`/admin/kelas/show-kelas-murid/${kelasId}`)
+        } catch (error) {
+            console.log(error)
+            req.flash('alertMessage', `${error.message}`)
+            req.flash('alertStatus', 'danger')
+            res.redirect(`/admin/kelas/show-kelas-murid/${kelasId}`)
         }
     },
 
