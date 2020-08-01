@@ -1,6 +1,12 @@
 const router = require('express').Router();
 const adminController = require('../controllers/adminController');
 const { uploadSingle } = require('../middlewares/multer')
+const auth = require('../middlewares/auth')
+
+router.get('/signin', adminController.viewSignIn);
+router.post('/signin', adminController.actionSignIn);
+router.use(auth)
+router.get('/logout', adminController.actionLogOut);
 
 router.get('/dashboard', adminController.viewDashboard);
 

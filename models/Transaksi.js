@@ -6,7 +6,11 @@ const transaksiSchema = new mongoose.Schema({
     type: Date,
     required: true
   },
-  name: {
+  invoice: {
+    type: String,
+    required: true
+  },
+  nisnMurid: {
     type: String,
     required: true,
   },

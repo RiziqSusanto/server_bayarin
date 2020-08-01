@@ -2,14 +2,68 @@ const Jurusan = require('../models/Jurusan')
 const Bank = require('../models/Bank')
 const Kelas = require('../models/Kelas')
 const Murid = require('../models/Murid')
+const Users = require('../models/Users')
 const fs = require('fs-extra')
 const path = require('path')
+const bcrypt = require("bcryptjs");
 
 module.exports = {
+    viewSignIn: async (req, res) => {
+        try {
+            const alertMessage = req.flash('alertMessage')
+            const alertStatus = req.flash('alertStatus')
+            const alert = { message: alertMessage, status: alertStatus }
+            if (req.session.user == null || req.session.user == undefined) {
+                res.render('index', {
+                    title: "Bayarin | Login",
+                    alert
+                })
+            } else {
+                res.redirect('/admin/dashboard')
+            }
+        } catch (error) {
+            res.redirect('/admin/signin')
+        }
+    },
+    actionSignIn: async (req, res) => {
+        try {
+            const { username, password } = req.body;
+            const user = await Users.findOne({ username: username });
+            if (!user) {
+                req.flash('alertMessage', 'User Yang Anda Masukan Tidak Ada')
+                req.flash('alertStatus', 'danger')
+                res.redirect('/admin/signin')
+            }
+            const isPasswordMatch = await bcrypt.compare(password, user.password);
+            if (!isPasswordMatch) {
+                req.flash('alertMessage', 'Password Yang Anda Masukan Tidak Cocok')
+                req.flash('alertStatus', 'danger')
+                res.redirect('/admin/signin')
+            }
+            req.session.user = {
+                id: user.id,
+                username: user.username,
+                role: user.role
+            }
+            res.redirect('/admin/dashboard')
+        } catch (error) {
+            res.redirect('/admin/signin')
+        }
+    },
+    actionLogOut: async (req, res) => {
+        req.session.destroy();
+        res.redirect('/admin/signin')
+    },
+
     viewDashboard: (req, res) => {
-        res.render('admin/dashboard/view_dashboard', {
-            title: "Bayarin | Dashboard"
-        })
+        try {
+            res.render('admin/dashboard/view_dashboard', {
+                title: "Bayarin | Dashboard",
+                user: req.session.user
+            })
+        } catch (error) {
+
+        }
     },
 
     viewBank: async (req, res) => {
@@ -20,6 +74,7 @@ module.exports = {
         res.render('admin/bank/view_bank', {
             title: "Bayarin | Bank",
             alert,
+            user: req.session.user,
             bank
         })
     },
@@ -95,7 +150,8 @@ module.exports = {
             res.render('admin/jurusan/view_jurusan', {
                 jurusan,
                 alert,
-                title: "Bayarin | Jurusan"
+                title: "Bayarin | Jurusan",
+                user: req.session.user
             })
         } catch (error) {
             res.redirect('/admin/jurusan')
@@ -157,7 +213,8 @@ module.exports = {
                 alert,
                 kelas,
                 jurusan,
-                action: 'view'
+                action: 'view',
+                user: req.session.user
             })
         } catch (error) {
             req.flash('alertMessage', `${error.message}`)
@@ -251,7 +308,8 @@ module.exports = {
                 title: "Bayarin | Murid",
                 alert,
                 kelasId,
-                murid
+                murid,
+                user: req.session.user
             })
         } catch (error) {
             req.flash('alertMessage', `${error.message}`)
@@ -327,7 +385,8 @@ module.exports = {
 
     viewTransaksi: (req, res) => {
         res.render('admin/transaksi/view_transaksi', {
-            title: "Bayarin | Transaksi"
+            title: "Bayarin | Transaksi",
+            user: req.session.user
         })
     },
 }

@@ -8,7 +8,7 @@ const session = require('express-session');
 const flash = require('connect-flash');
 // Import mongoose
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost:27017/db_spp', {
+mongoose.connect('mongodb://localhost:27017/db_sppBaru', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useCreateIndex: true,
