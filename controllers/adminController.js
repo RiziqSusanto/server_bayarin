@@ -3,6 +3,8 @@ const Bank = require('../models/Bank')
 const Kelas = require('../models/Kelas')
 const Murid = require('../models/Murid')
 const Users = require('../models/Users')
+const Member = require('../models/Member')
+const Transaksi = require('../models/Transaksi')
 const fs = require('fs-extra')
 const path = require('path')
 const bcrypt = require("bcryptjs");
@@ -55,11 +57,21 @@ module.exports = {
         res.redirect('/admin/signin')
     },
 
-    viewDashboard: (req, res) => {
+    viewDashboard: async (req, res) => {
         try {
+            const member = await Member.find();
+            const transaksi = await Transaksi.find();
+            const jurusan = await Jurusan.find();
+            const murid = await Murid.find();
+            const kelas = await Kelas.find();
             res.render('admin/dashboard/view_dashboard', {
                 title: "Bayarin | Dashboard",
-                user: req.session.user
+                user: req.session.user,
+                member,
+                transaksi,
+                jurusan,
+                murid,
+                kelas
             })
         } catch (error) {
 
@@ -383,10 +395,62 @@ module.exports = {
         }
     },
 
-    viewTransaksi: (req, res) => {
-        res.render('admin/transaksi/view_transaksi', {
-            title: "Bayarin | Transaksi",
-            user: req.session.user
-        })
+    viewTransaksi: async (req, res) => {
+        try {
+            const transaksi = await Transaksi.find()
+                .populate('memberId');
+            res.render('admin/transaksi/view_transaksi', {
+                title: "Bayarin | Transaksi",
+                user: req.session.user,
+                transaksi
+            })
+        } catch (error) {
+            res.redirect('/admin/transaksi')
+        }
+    },
+    showDetailTransaksi: async (req, res) => {
+        const { id } = req.params;
+        try {
+            const alertMessage = req.flash('alertMessage')
+            const alertStatus = req.flash('alertStatus')
+            const alert = { message: alertMessage, status: alertStatus }
+            const transaksi = await Transaksi.findOne({ _id: id })
+                .populate('memberId');
+            console.log(transaksi)
+            res.render('admin/transaksi/show_detail_transaksi', {
+                title: "Bayarin | Detail Transaksi",
+                user: req.session.user,
+                transaksi,
+                alert
+            })
+        } catch (error) {
+            res.redirect('/admin/transaksi')
+        }
+    },
+    actionConfirmation: async (req, res) => {
+        const { id } = req.params;
+        try {
+            const transaksi = await Transaksi.findOne({ _id: id })
+            transaksi.payments.status = 'ACCEPT';
+            await transaksi.save();
+            req.flash('alertMessage', 'Success Konfirmasi Pembayaran')
+            req.flash('alertStatus', 'success')
+            res.redirect(`/admin/transaksi/${id}`)
+        } catch (error) {
+            res.redirect(`/admin/transaksi/${id}`)
+        }
+    },
+    actionReject: async (req, res) => {
+        const { id } = req.params;
+        try {
+            const transaksi = await Transaksi.findOne({ _id: id })
+            transaksi.payments.status = 'REJECT';
+            await transaksi.save();
+            req.flash('alertMessage', 'Success Konfirmasi Pembayaran')
+            req.flash('alertStatus', 'success')
+            res.redirect(`/admin/transaksi/${id}`)
+        } catch (error) {
+            res.redirect(`/admin/transaksi/${id}`)
+        }
     },
 }

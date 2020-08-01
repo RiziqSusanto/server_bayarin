@@ -450,12 +450,27 @@ var data = [
             {
                 _id: mongoose.Types.ObjectId('5e96cbe292b97300fc90cee1'),
                 transaksiDate: '12-12-2020',
+                namaMurid: 'Clara Ana Susanti',
                 nisnMurid: 181910101,
                 invoice: 1231231,
                 memberId: mongoose.Types.ObjectId('5e96cbe292b97300fc903333'),
                 payments: {
                     proofPayment: 'images/buktibayar.jpeg',
                     bankFrom: 'BCA',
+                    status: 'Proses',
+                    accountHolder: 'ang'
+                }
+            },
+            {
+                _id: mongoose.Types.ObjectId('5e96cbe292b97300fc90cee2'),
+                transaksiDate: '12-12-2020',
+                namaMurid: 'Olivia Aryani',
+                nisnMurid: 181910102,
+                invoice: 1231232,
+                memberId: mongoose.Types.ObjectId('5e96cbe292b97300fc903334'),
+                payments: {
+                    proofPayment: 'images/buktibayar.jpeg',
+                    bankFrom: 'BNI',
                     status: 'Proses',
                     accountHolder: 'ang'
                 }

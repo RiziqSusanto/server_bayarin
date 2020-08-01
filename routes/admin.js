@@ -36,5 +36,8 @@ router.put('/kelas/update/murid', adminController.editMurid);
 router.delete('/kelas/:kelasId/murid/:id', adminController.deleteMurid);
 
 router.get('/transaksi', adminController.viewTransaksi);
+router.get('/transaksi/:id', adminController.showDetailTransaksi);
+router.put('/transaksi/:id/confirmation', adminController.actionConfirmation);
+router.put('/transaksi/:id/reject', adminController.actionReject);
 
 module.exports = router

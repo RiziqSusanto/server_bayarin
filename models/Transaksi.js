@@ -10,6 +10,10 @@ const transaksiSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  namaMurid: {
+    type: String,
+    required: true,
+  },
   nisnMurid: {
     type: String,
     required: true,
