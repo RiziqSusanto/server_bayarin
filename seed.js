@@ -40,15 +40,15 @@ var data = [
                 _id: mongoose.Types.ObjectId('5e96cbe292b97300fc903322'),
                 nameBank: 'Mandiri',
                 nomorRekening: '089898',
-                name: 'elfin',
-                imageUrl: 'images/logo bca.png'
+                name: 'SMKN 1 BEKASI',
+                imageUrl: 'images/logo mandiri.png'
             },
             {
                 _id: mongoose.Types.ObjectId('5e96cbe292b97300fc903323'),
                 nameBank: 'BCA',
                 nomorRekening: '878678',
-                name: 'elfin',
-                imageUrl: 'images/logo mandiri.png'
+                name: 'SMKN 1 BEKASI',
+                imageUrl: 'images/logo bca.png'
             }
         ]
     },
@@ -510,7 +510,7 @@ var data = [
             },
             {
                 _id: mongoose.Types.ObjectId('5e96cbe292b97300fc903346'),
-                username: 'dani',
+                username: 'riziq',
                 password: '123',
                 role: 'operator'
             },
