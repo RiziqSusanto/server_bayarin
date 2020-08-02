@@ -37,7 +37,14 @@ router.delete('/kelas/:kelasId/murid/:id', adminController.deleteMurid);
 
 router.get('/transaksi', adminController.viewTransaksi);
 router.get('/transaksi/:id', adminController.showDetailTransaksi);
+router.delete('/transaksi/:id', adminController.deleteTransaksi);
 router.put('/transaksi/:id/confirmation', adminController.actionConfirmation);
 router.put('/transaksi/:id/reject', adminController.actionReject);
+
+// Endpoint user
+router.get('/user', adminController.viewUsers);
+router.post('/user', adminController.addUsers);
+router.put('/user', adminController.editUsers);
+router.delete('/user/:id', adminController.deleteUsers);
 
 module.exports = router

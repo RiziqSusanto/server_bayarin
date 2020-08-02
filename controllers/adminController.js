@@ -268,7 +268,8 @@ module.exports = {
                 alert,
                 kelas,
                 jurusan,
-                action: 'edit'
+                action: 'edit',
+                user: req.session.user
             })
         } catch (error) {
             req.flash('alertMessage', `${error.message}`)
@@ -397,12 +398,16 @@ module.exports = {
 
     viewTransaksi: async (req, res) => {
         try {
+            const alertMessage = req.flash('alertMessage')
+            const alertStatus = req.flash('alertStatus')
+            const alert = { message: alertMessage, status: alertStatus }
             const transaksi = await Transaksi.find()
                 .populate('memberId');
             res.render('admin/transaksi/view_transaksi', {
                 title: "Bayarin | Transaksi",
+                alert,
                 user: req.session.user,
-                transaksi
+                transaksi,
             })
         } catch (error) {
             res.redirect('/admin/transaksi')
@@ -424,6 +429,20 @@ module.exports = {
                 alert
             })
         } catch (error) {
+            res.redirect('/admin/transaksi')
+        }
+    },
+    deleteTransaksi: async (req, res) => {
+        try {
+            const { id } = req.params;
+            const transaksi = await Transaksi.findOne({ _id: id });
+            await transaksi.remove();
+            req.flash('alertMessage', 'Success Delete Transaksi')
+            req.flash('alertStatus', 'success')
+            res.redirect('/admin/transaksi')
+        } catch (error) {
+            req.flash('alertMessage', `${error.message}`)
+            req.flash('alertStatus', 'danger')
             res.redirect('/admin/transaksi')
         }
     },
@@ -451,6 +470,66 @@ module.exports = {
             res.redirect(`/admin/transaksi/${id}`)
         } catch (error) {
             res.redirect(`/admin/transaksi/${id}`)
+        }
+    },
+
+    viewUsers: async (req, res) => {
+        const users = await Users.find()
+        const alertMessage = req.flash('alertMessage')
+        const alertStatus = req.flash('alertStatus')
+        const alert = { message: alertMessage, status: alertStatus }
+        res.render('admin/user/view_user', {
+            title: "Bayarin | Bank",
+            alert,
+            user: req.session.user,
+            users,
+        })
+    },
+    addUsers: async (req, res) => {
+        try {
+            const { username, password, role } = req.body;
+            await Users.create({
+                username,
+                password,
+                role
+            });
+            req.flash('alertMessage', 'Success Add Users')
+            req.flash('alertStatus', 'success')
+            res.redirect(`/admin/user`)
+        } catch (error) {
+            req.flash('alertMessage', `${error.message}`)
+            req.flash('alertStatus', 'danger')
+            res.redirect(`/admin/user`)
+        }
+    },
+    editUsers: async (req, res) => {
+        const { id, username, role } = req.body;
+        try {
+            const users = await Users.findOne({ _id: id })
+            users.username = username;
+            users.role = role;
+            await users.save()
+            req.flash('alertMessage', 'Success Update Users')
+            req.flash('alertStatus', 'success')
+            res.redirect(`/admin/user`)
+        } catch (error) {
+            req.flash('alertMessage', `${error.message}`)
+            req.flash('alertStatus', 'danger')
+            res.redirect(`/admin/user`)
+        }
+    },
+    deleteUsers: async (req, res) => {
+        try {
+            const { id } = req.params;
+            const users = await Users.findOne({ _id: id });
+            await users.remove();
+            req.flash('alertMessage', 'Success Delete Users')
+            req.flash('alertStatus', 'success')
+            res.redirect(`/admin/user`)
+        } catch (error) {
+            req.flash('alertMessage', `${error.message}`)
+            req.flash('alertStatus', 'danger')
+            res.redirect(`/admin/user`)
         }
     },
 }

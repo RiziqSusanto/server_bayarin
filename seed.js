@@ -136,31 +136,6 @@ var data = [
                 name: 'X Akutansi A',
                 muridId: [
                     // done
-                    { _id: mongoose.Types.ObjectId('5e96cbe292b97300fc90aa09') },
-                    // done
-                    { _id: mongoose.Types.ObjectId('5e96cbe292b97300fc90aa10') },
-                    // done
-                    { _id: mongoose.Types.ObjectId('5e96cbe292b97300fc90aa11') },
-                    // done
-                    { _id: mongoose.Types.ObjectId('5e96cbe292b97300fc90aa12') },
-                    // done
-                    { _id: mongoose.Types.ObjectId('5e96cbe292b97300fc90aa13') },
-                    // done
-                    { _id: mongoose.Types.ObjectId('5e96cbe292b97300fc90aa14') },
-                    // done
-                    { _id: mongoose.Types.ObjectId('5e96cbe292b97300fc90aa15') },
-                    // done
-                    { _id: mongoose.Types.ObjectId('5e96cbe292b97300fc90aa16') }
-                ],
-                jurusanId: '5e96cbe292b97300fc901111'
-            },
-            // X AK B
-            {
-                // done
-                _id: mongoose.Types.ObjectId('5e96cbe292b97300fc902223'),
-                name: 'X Akuntansi B',
-                muridId: [
-                    // done
                     { _id: mongoose.Types.ObjectId('5e96cbe292b97300fc90aa01') },
                     // done
                     { _id: mongoose.Types.ObjectId('5e96cbe292b97300fc90aa02') },
@@ -176,6 +151,32 @@ var data = [
                     { _id: mongoose.Types.ObjectId('5e96cbe292b97300fc90aa07') },
                     // done
                     { _id: mongoose.Types.ObjectId('5e96cbe292b97300fc90aa08') }
+
+                ],
+                jurusanId: '5e96cbe292b97300fc901111'
+            },
+            // X AK B
+            {
+                // done
+                _id: mongoose.Types.ObjectId('5e96cbe292b97300fc902223'),
+                name: 'X Akuntansi B',
+                muridId: [
+                    // done
+                    { _id: mongoose.Types.ObjectId('5e96cbe292b97300fc90aa09') },
+                    // done
+                    { _id: mongoose.Types.ObjectId('5e96cbe292b97300fc90aa10') },
+                    // done
+                    { _id: mongoose.Types.ObjectId('5e96cbe292b97300fc90aa11') },
+                    // done
+                    { _id: mongoose.Types.ObjectId('5e96cbe292b97300fc90aa12') },
+                    // done
+                    { _id: mongoose.Types.ObjectId('5e96cbe292b97300fc90aa13') },
+                    // done
+                    { _id: mongoose.Types.ObjectId('5e96cbe292b97300fc90aa14') },
+                    // done
+                    { _id: mongoose.Types.ObjectId('5e96cbe292b97300fc90aa15') },
+                    // done
+                    { _id: mongoose.Types.ObjectId('5e96cbe292b97300fc90aa16') }
                 ],
                 jurusanId: '5e96cbe292b97300fc901111'
             },
