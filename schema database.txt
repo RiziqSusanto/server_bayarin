@@ -1,9 +1,6 @@
 jurusan : {
-	name : string 
-}
-
-image : {
-	imageUrl : string 
+	name : string,
+	kelasId: [{ type: ObjectId}]
 }
 
 kelas : {
@@ -24,25 +21,28 @@ siswa : {
 bank : {
 	nameBank : string,
 	nomorRekening : string,
+	imageUrl : string,
 	name : string
 }
 
 transaksi : {
 	invoice : string,
+	transaksiDate : date,
+	nisnMurid: string,
+	namaMurid: string,
 	proofPayment : string,
     	bankFrom : string,
     	accountHolder : string,
-	userId : {_id : ObjectId}
+	memberId : {_id : ObjectId}
 }
 
-user : {
+member : {
   	firstName: string,
   	lastName: string,
-  	email: string,
   	phoneNumber: string,
 }
 
-operator : {
+user : {
 	username : string,
 	password : string
 }

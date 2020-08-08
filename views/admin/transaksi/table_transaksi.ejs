@@ -6,6 +6,7 @@
                 <thead>
                     <tr>
                         <th>No</th>
+                        <th>Invoice</th>
                         <th>Date</th>
                         <th>Nama</th>
                         <th>Status</th>
@@ -16,6 +17,7 @@
                     <% for(let i = 0; i < transaksi.length; i++){ %>
                     <tr>
                         <td><%= i + 1 %></td>
+                        <td>#<%= transaksi[i].invoice %></td>
                         <td><%= transaksi[i].transaksiDate.toLocaleString().split(',')[0] %></td>
                         <td><%= transaksi[i].memberId.firstName %> <%= transaksi[i].memberId.lastName %></td>
                         <td><%= transaksi[i].payments.status %></td>
