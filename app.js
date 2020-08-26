@@ -9,12 +9,15 @@ const flash = require("connect-flash");
 const cors = require("cors");
 // Import mongoose
 const mongoose = require("mongoose");
-mongoose.connect("mongodb://localhost:27017/db_sppBaru", {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  useCreateIndex: true,
-  useFindAndModify: false,
-});
+mongoose.connect(
+  "mongodb+srv://riziq:123@cluster0.ubjwy.mongodb.net/db_spp?retryWrites=true&w=majority",
+  {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true,
+    useFindAndModify: false,
+  }
+);
 
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
