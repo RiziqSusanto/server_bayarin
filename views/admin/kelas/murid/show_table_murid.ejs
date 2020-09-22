@@ -1,48 +1,71 @@
-<div class="tab-pane fade show active" id="show-murid" role="tabpanel" aria-labelledby="home-tab">
-    <!-- DataTales Example -->
-    <div class="card shadow mb-4 mt-2">
-        <div class="card-body">
-            <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                    <thead>
-                        <tr>
-                            <th>No</th>
-                            <th>NISN</th>
-                            <th>Nama</th>
-                            <th>Jenis Kelamin</th>
-                            <th>No Telepon</th>
-                            <th>Alamat</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <% for(let i = 0; i < murid.length; i++){ %>
-                        <tr>
-                            <td><%= i + 1 %></td>
-                            <td><%= murid[i].nisn %></td>
-                            <td><%= murid[i].name %></td>
-                            <td><%= murid[i].jenisKelamin %></td>
-                            <td><%= murid[i].noTelepon %></td>
-                            <td><%= murid[i].alamat %></td>
-                            <td>
-                                <form action="/admin/kelas/<%= kelasId %>/murid/<%= murid[i].id %>?_method=DELETE"
-                                    method="POST">
-                                    <a href="javascript:void();" type="button"
-                                        class="btn btn-warning btn-circle btn-sm button-update"
-                                        data-id="<%= murid[i].id %>" data-nisn="<%= murid[i].nisn %>"
-                                        data-name="<%= murid[i].name %>"
-                                        data-jeniskelamin="<%= murid[i].jenisKelamin %>"
-                                        data-notelepon="<%= murid[i].noTelepon %>"
-                                        data-alamat="<%= murid[i].alamat %>"><i class="fas fa-edit"></i></a>
-                                    <button type="submit" class="btn btn-danger btn-circle btn-sm"><i
-                                            class="fas fa-trash"></i></button>
-                                </form>
-                            </td>
-                        </tr>
-                        <% } %>
-                    </tbody>
-                </table>
-            </div>
-        </div>
+<div
+  class="tab-pane fade show active"
+  id="show-murid"
+  role="tabpanel"
+  aria-labelledby="home-tab"
+>
+  <!-- DataTales Example -->
+  <div class="card shadow mb-4 mt-2">
+    <div class="card-body">
+      <div class="table-responsive">
+        <table
+          class="table table-bordered"
+          id="dataTable"
+          width="100%"
+          cellspacing="0"
+        >
+          <thead>
+            <tr>
+              <th>No</th>
+              <th>NISN</th>
+              <th>Nama</th>
+              <th>Jenis Kelamin</th>
+              <th>No Telepon</th>
+              <th>Alamat</th>
+              <th>Status Bulan Ini</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% for(let i = 0; i < murid.length; i++){ %>
+            <tr>
+              <td><%= i + 1 %></td>
+              <td><%= murid[i].nisn %></td>
+              <td><%= murid[i].name %></td>
+              <td><%= murid[i].jenisKelamin %></td>
+              <td><%= murid[i].noTelepon %></td>
+              <td><%= murid[i].alamat %></td>
+              <td><%= murid[i].status %></td>
+              <td>
+                <form
+                  action="/admin/kelas/<%= kelasId %>/murid/<%= murid[i].id %>?_method=DELETE"
+                  method="POST"
+                >
+                  <a
+                    href="javascript:void();"
+                    type="button"
+                    class="btn btn-warning btn-circle btn-sm button-update"
+                    data-id="<%= murid[i].id %>"
+                    data-nisn="<%= murid[i].nisn %>"
+                    data-name="<%= murid[i].name %>"
+                    data-jeniskelamin="<%= murid[i].jenisKelamin %>"
+                    data-notelepon="<%= murid[i].noTelepon %>"
+                    data-alamat="<%= murid[i].alamat %>"
+                    ><i class="fas fa-edit"></i
+                  ></a>
+                  <button
+                    type="submit"
+                    class="btn btn-danger btn-circle btn-sm"
+                  >
+                    <i class="fas fa-trash"></i>
+                  </button>
+                </form>
+              </td>
+            </tr>
+            <% } %>
+          </tbody>
+        </table>
+      </div>
     </div>
+  </div>
 </div>

@@ -36,7 +36,7 @@ app.use(
     secret: "keyboard cat",
     resave: false,
     saveUninitialized: true,
-    cookie: { maxAge: 60000 },
+    cookie: {},
   })
 );
 app.use(cors());
